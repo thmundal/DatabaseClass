@@ -1,15 +1,14 @@
 <?php
-
-// mySQL database handling for PHP
-// MySQL Version 5.5.27
-// PHP Version 5.4.7
-
+/**
+ * Extended MySQL handler for PHP version 5.4.7 and MySQL version 5.5.27
+ * @author Thomas Mundal
+ */
 require_once("util.php");
 
 Class mysql_connection extends mysqli {
+    /** @var mysqli 
+     * Holds the mysqli connection */
     private $connection;
-    private $resultSet;
-    private $connection_info;
 
     /*
    ["host" => "localhost",
@@ -22,6 +21,14 @@ Class mysql_connection extends mysqli {
         $this->connection = $connection;
     }
     
+    /**
+     * Initializes the mysql connection
+     * @staticvar self $instance
+     * @param Array $connection_info
+     * Contains the data used to connect to mysql via mysqli. Keynames are mandatory to the following: "username", "password", "dbname", "port" (optional), "socket" (optional)
+     * The values of these corresponds to the values needed for mysqli::__construct
+     * @return \self
+     */
     public static function initialize(Array $connection_info) {
         static $instance;
         
@@ -35,29 +42,57 @@ Class mysql_connection extends mysqli {
             
             $instance = new self($connection);
             $instance->connection = $connection;
-            $instance->connection_info = $connection_info;
         }
         return $instance;
     }
     
+    /**
+     * Terminates the mysql connection
+     */
     public function end() {
         mysqli_close($this->connection);
     }
     
+    /**
+     * Returns the result of a query
+     * @param query $query
+     * @return result
+     */
     public function execute(query $query) {
         return ($this->result = new result($this->connection, $query));
     }
 }
 
+/**
+ * Class for holding and handling queries and query-manipulation pre-execution
+ */
 Class query  {
+    /**
+     * Holds the generated SQL string that will eventually be evaluated trough mysql
+     * @var string
+     */
     private $query_string;
-    private $result;
-    private $num_rows;
 
+    /**
+     * Initializes a new query and translates the parameters into usable SQL.
+     * Query parameters are passed in an array by identifying information trough key/value pairs.
+     * Key/value pairs that can be used are:<pre>
+     * "type" => "select"/"insert"/"delete"/"update",
+     * description"table" => [table_name],
+     * "where" => [(string) condition] ex: "row1 = true AND row2 = \"blah\"",
+     * "order" => [mysql_order_statement],
+     * "limit" => [mysql_limit_statement]</pre>
+     * @param Array $query_parameters
+     */
     public function __construct(Array $query_parameters) {
         $this->query_string = $this->{arrGet($query_parameters, "type")}($query_parameters);
     }
 
+    /**
+     * Creates a mysql-compatible string from a given set of array key/values passed from the constructor
+     * @param array $parameters
+     * @return string
+     */
     public function select(Array $parameters) {
         return arrayToString(array_merge(
                                 ["SELECT", call(function() use($parameters) {
@@ -79,27 +114,33 @@ Class query  {
                                     return [];
                                 })));
     }
-
-    public function insert(Array $parameters) {
-
-    }
-
-    public function join(Array $parameters) {
-
-    }
-
+    
     public function getLastQueryString() {
         return $this->query_string;
     }
 }
 
+
 Class result extends mysql_connection {
+    /**
+     *
+     * @var ResultSet
+     */
     private $resultSet;
     
+    /**
+     * 
+     * @param mysqli $connection
+     * @param query $query
+     */
     public function __construct($connection, query $query) {
         $this->resultSet = new ResultSet($connection->query($query->getLastQueryString()));
     }
 
+    /**
+     * Extracts the resultset from the result for further manipulation
+     * @return ResultSet
+     */
     public function extract() {
         return $this->resultSet;
     }
