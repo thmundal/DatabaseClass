@@ -14,6 +14,11 @@
             "password" => "",
             "dbname" => "test"]);
 
+        $connection->execute(new query(
+            ["type" => "insert",
+                "table" => "test",
+             "data" => ["name" => "insert test2"]]));
+        
         $query = new query(["type" => "select",
             "table" => "test"]);
         

@@ -7,7 +7,7 @@
 	<title>Function pre_print_r | DatabaseClass</title>
 
 	<script type="text/javascript" src="resources/combined.js?3715972085"></script>
-	<script type="text/javascript" src="elementlist.js?2046665258"></script>
+	<script type="text/javascript" src="elementlist.js?1000383870"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -91,11 +91,20 @@
 	<h1>Function pre_print_r</h1>
 
 
+	<div class="description">
+	
+<p>Displays or returns a datastructure printed out in HTML pre tags for easier
+readability.</p>
+
+	</div>
 
 	<div class="info">
 		
 		
-		<b>Located at</b> <a href="source-function-pre_print_r.html#5-12" title="Go to source code">util.php</a><br />
+				<b>Author:</b>
+				Thomas Mundal &lt;<a
+href="mailto:thmundal&#64;gmail.com">thmundal&#64;<!---->gmail.com</a>&gt;<br />
+		<b>Located at</b> <a href="source-function-pre_print_r.html#7-25" title="Go to source code">util.php</a><br />
 	</div>
 
 
@@ -105,18 +114,30 @@
 		<td class="name"><code>mixed</code></td>
 		<td class="value"><code><var>$data</var></code></td>
 		<td>
-			
+			Contains the data to be printed
 		</td>
 	</tr>
 	<tr id="$return">
-		<td class="name"><code>mixed</code></td>
+		<td class="name"><code>boolean</code></td>
 		<td class="value"><code><var>$return</var> = <span class="php-keyword1">false</span></code></td>
 		<td>
-			
+			Determens if the data is to be echoed or returned for later use
 		</td>
 	</tr>
 	</table>
 
+	<table class="summary" id="returns">
+	<caption>Return value summary</caption>
+	<tr>
+		<td class="name"><code>
+			string
+		</code></td>
+		<td>
+			Returns the pre-formatted string, or NULL if &lt;pre&gt;$return&lt;/pre&gt; is
+false
+		</td>
+	</tr>
+	</table>
 
 
 </div>

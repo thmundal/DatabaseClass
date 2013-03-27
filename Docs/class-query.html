@@ -7,7 +7,7 @@
 	<title>Class query | DatabaseClass</title>
 
 	<script type="text/javascript" src="resources/combined.js?3715972085"></script>
-	<script type="text/javascript" src="elementlist.js?2046665258"></script>
+	<script type="text/javascript" src="elementlist.js?1000383870"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -113,8 +113,9 @@ pre-execution</p>
 		
 
 				<b>Author:</b>
-				Thomas Mundal<br />
-		<b>Located at</b> <a href="source-class-query.html#66-121" title="Go to source code">mysql.php</a><br />
+				Thomas Mundal &lt;<a
+href="mailto:thmundal&#64;gmail.com">thmundal&#64;<!---->gmail.com</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-query.html#66-126" title="Go to source code">mysql.php</a><br />
 	</div>
 
 
@@ -141,7 +142,7 @@ parameters are passed in an array by identifying information trough key/value
 pairs. Key/value pairs that can be used are:</p>
 
 <pre>
-&quot;type&quot; =&gt; &quot;select&quot;/&quot;insert&quot;/&quot;delete&quot;/&quot;update&quot;,@
+&quot;type&quot; =&gt; &quot;select&quot;/&quot;insert&quot;/&quot;delete&quot;/&quot;update&quot;,
 description&quot;table&quot; =&gt; [table_name],
 &quot;where&quot; =&gt; [(string) condition] ex: &quot;row1 = true AND row2 = \&quot;blah\&quot;&quot;,
 &quot;order&quot; =&gt; [mysql_order_statement],
@@ -156,7 +157,7 @@ parameters are passed in an array by identifying information trough key/value
 pairs. Key/value pairs that can be used are:</p>
 
 <pre>
-&quot;type&quot; =&gt; &quot;select&quot;/&quot;insert&quot;/&quot;delete&quot;/&quot;update&quot;,@
+&quot;type&quot; =&gt; &quot;select&quot;/&quot;insert&quot;/&quot;delete&quot;/&quot;update&quot;,
 description&quot;table&quot; =&gt; [table_name],
 &quot;where&quot; =&gt; [(string) condition] ex: &quot;row1 = true AND row2 = \&quot;blah\&quot;&quot;,
 &quot;order&quot; =&gt; [mysql_order_statement],
@@ -167,7 +168,7 @@ description&quot;table&quot; =&gt; [table_name],
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$query_parameters</var></dt>
-					<dd><code>array</code><br>$query_parameters</dd>
+					<dd><code>Array</code><br>$query_parameters</dd>
 				</dl></div>
 
 
@@ -225,24 +226,32 @@ from the constructor</p>
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLastQueryString">#</a>
-		<code><a href="source-class-query.html#118-120" title="Go to source code">getLastQueryString</a>( )</code>
+		<code><a href="source-class-query.html#118-125" title="Go to source code">getLastQueryString</a>( )</code>
 
 		<div class="description short">
 			
+<p>Returns the last used query string in this query</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>Returns the last used query string in this query</p>
 
 
 
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>The last used query string in this query<br />
+				</div>
 
 
 
