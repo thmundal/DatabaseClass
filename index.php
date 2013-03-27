@@ -47,5 +47,6 @@
         
         $connection->end();
         ?>
+        Test
     </body>
 </html>
