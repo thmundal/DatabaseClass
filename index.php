@@ -14,10 +14,23 @@
             "password" => "",
             "dbname" => "test"]);
 
-        $connection->execute(new query(
-            ["type" => "insert",
-                "table" => "test",
-             "data" => ["name" => "insert test2"]]));
+//        $connection->execute(new query(
+//            ["type" => "insert",
+//             "table" => "test",
+//             "data" => ["name" => "insert test3"]]));
+        
+//        $connection->execute(new query([
+//            "type" => "update",
+//            "table" => "test",
+//            "data" => ["name" => "update test 2"],
+//            "where" => "id = 2 OR id = 4"
+//        ]));
+        
+        $connection->execute(new query([
+            "type" => "delete",
+            "table" => "test",
+            "where" => "id = 1"
+        ]));
         
         $query = new query(["type" => "select",
             "table" => "test"]);

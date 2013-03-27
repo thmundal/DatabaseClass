@@ -94,8 +94,7 @@
 	<div class="description">
 	
 <p>Get the value of an array at the given index, if the index is not found the
-return value is based upon the given <code>&lt;span
-class="php-var"&gt;$return_value&lt;/span&gt;</code></p>
+return value is based upon the given $return_value</p>
 
 	</div>
 
@@ -105,7 +104,7 @@ class="php-var"&gt;$return_value&lt;/span&gt;</code></p>
 				<b>Author:</b>
 				Thomas Mundal &lt;<a
 href="mailto:thmundal&#64;gmail.com">thmundal&#64;<!---->gmail.com</a>&gt;<br />
-		<b>Located at</b> <a href="source-function-arrGet.html#27-44" title="Go to source code">util.php</a><br />
+		<b>Located at</b> <a href="source-function-arrGet.html#27-51" title="Go to source code">util.php</a><br />
 	</div>
 
 
@@ -115,21 +114,22 @@ href="mailto:thmundal&#64;gmail.com">thmundal&#64;<!---->gmail.com</a>&gt;<br />
 		<td class="name"><code>array</code></td>
 		<td class="value"><code><var>$array</var></code></td>
 		<td>
-			
+			The array from which the value is to be gotten.
 		</td>
 	</tr>
 	<tr id="$key">
-		<td class="name"><code>type</code></td>
+		<td class="name"><code>mixed</code></td>
 		<td class="value"><code><var>$key</var></code></td>
 		<td>
-			
+			The key to the value to be gotten.
 		</td>
 	</tr>
 	<tr id="$return_value">
-		<td class="name"><code>type</code></td>
+		<td class="name"><code>mixed</code></td>
 		<td class="value"><code><var>$return_value</var> = <span class="php-quote">&quot;%throw-exception%&quot;</span></code></td>
 		<td>
-			
+			Default value is "%throw-exception%" and the function will throw an exception if
+the key could not be found in the array and no return value is specified.
 		</td>
 	</tr>
 	</table>
@@ -138,10 +138,10 @@ href="mailto:thmundal&#64;gmail.com">thmundal&#64;<!---->gmail.com</a>&gt;<br />
 	<caption>Return value summary</caption>
 	<tr>
 		<td class="name"><code>
-			array
+			mixed
 		</code></td>
 		<td>
-			
+			Returns the data at the key in the given array
 		</td>
 	</tr>
 	</table>
@@ -153,7 +153,8 @@ href="mailto:thmundal&#64;gmail.com">thmundal&#64;<!---->gmail.com</a>&gt;<br />
 			<code><a href="class-Exception.html">Exception</a></code>
 		</code></td>
 		<td>
-			
+			Exception is thrown if the given key does not exist in the array, and when a
+return value is not specified
 		</td>
 	</tr>
 	</table>

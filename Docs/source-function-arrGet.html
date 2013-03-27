@@ -103,7 +103,7 @@
 </span></span><span id="12" class="l"><a class="l" href="#12">12: </a><span class="php-comment"> * @param bool $return
 </span></span><span id="13" class="l"><a class="l" href="#13">13: </a><span class="php-comment"> * Determens if the data is to be echoed or returned for later use
 </span></span><span id="14" class="l"><a class="l" href="#14">14: </a><span class="php-comment"> * @return string
-</span></span><span id="15" class="l"><a class="l" href="#15">15: </a><span class="php-comment"> * Returns the pre-formatted string, or NULL if &lt;pre&gt;$return&lt;/pre&gt; is false
+</span></span><span id="15" class="l"><a class="l" href="#15">15: </a><span class="php-comment"> * Returns the pre-formatted string, or NULL if $return is false
 </span></span><span id="16" class="l"><a class="l" href="#16">16: </a><span class="php-comment"> */</span>
 </span><span id="17" class="l"><a class="l" href="#17">17: </a><span class="php-keyword1">function</span> <a id="_pre_print_r" href="#_pre_print_r">pre_print_r</a>(<span class="php-var">$data</span>, <span class="php-var">$return</span> = <span class="php-keyword1">false</span>) {
 </span><span id="18" class="l"><a class="l" href="#18">18: </a>    <span class="php-var">$pre</span> = <span class="php-quote">&quot;&lt;pre&gt;&quot;</span> . <span class="php-keyword2">print_r</span>(<span class="php-var">$data</span>, <span class="php-keyword1">true</span>) . <span class="php-quote">&quot;&lt;/pre&gt;&quot;</span>;
@@ -117,42 +117,66 @@
 </span><span id="26" class="l"><a class="l" href="#26">26: </a>
 </span><span id="27" class="l"><a class="l" href="#27">27: </a><span class="php-comment">/**
 </span></span><span id="28" class="l"><a class="l" href="#28">28: </a><span class="php-comment"> * Get the value of an array at the given index, if the index is not found the return value
-</span></span><span id="29" class="l"><a class="l" href="#29">29: </a><span class="php-comment"> * is based upon the given &lt;code&gt;$return_value&lt;/code&gt;
+</span></span><span id="29" class="l"><a class="l" href="#29">29: </a><span class="php-comment"> * is based upon the given $return_value
 </span></span><span id="30" class="l"><a class="l" href="#30">30: </a><span class="php-comment"> * @param array $array
-</span></span><span id="31" class="l"><a class="l" href="#31">31: </a><span class="php-comment"> * @param type $key
-</span></span><span id="32" class="l"><a class="l" href="#32">32: </a><span class="php-comment"> * @param type $return_value
-</span></span><span id="33" class="l"><a class="l" href="#33">33: </a><span class="php-comment"> * @return array
-</span></span><span id="34" class="l"><a class="l" href="#34">34: </a><span class="php-comment"> * @throws Exception
-</span></span><span id="35" class="l"><a class="l" href="#35">35: </a><span class="php-comment"> */</span>
-</span><span id="36" class="l"><a class="l" href="#36">36: </a><span class="php-keyword1">function</span> <a id="_arrGet" href="#_arrGet">arrGet</a>(<span class="php-keyword1">Array</span> <span class="php-var">$array</span>, <span class="php-var">$key</span>, <span class="php-var">$return_value</span> = <span class="php-quote">&quot;%throw-exception%&quot;</span>) {
-</span><span id="37" class="l"><a class="l" href="#37">37: </a>    <span class="php-keyword1">if</span>(!<span class="php-keyword2">array_key_exists</span>(<span class="php-var">$key</span>, <span class="php-var">$array</span>))
-</span><span id="38" class="l"><a class="l" href="#38">38: </a>        <span class="php-keyword1">if</span>(<span class="php-var">$return_value</span> == <span class="php-quote">&quot;%throw-exception%&quot;</span>)
-</span><span id="39" class="l"><a class="l" href="#39">39: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Exception(<span class="php-quote">&quot;Could not find key &quot;</span>.<span class="php-var">$key</span>.<span class="php-quote">&quot; in array: &quot;</span> . pre_print_r(<span class="php-var">$array</span>, <span class="php-keyword1">true</span>));
-</span><span id="40" class="l"><a class="l" href="#40">40: </a>        <span class="php-keyword1">else</span>
-</span><span id="41" class="l"><a class="l" href="#41">41: </a>            <span class="php-keyword1">return</span> <span class="php-var">$return_value</span>;
-</span><span id="42" class="l"><a class="l" href="#42">42: </a>            
-</span><span id="43" class="l"><a class="l" href="#43">43: </a>    <span class="php-keyword1">return</span> <span class="php-var">$array</span>[<span class="php-var">$key</span>];
-</span><span id="44" class="l"><a class="l" href="#44">44: </a>}
-</span><span id="45" class="l"><a class="l" href="#45">45: </a>
-</span><span id="46" class="l"><a class="l" href="#46">46: </a><span class="php-keyword1">function</span> <a id="_toInt" href="#_toInt">toInt</a>(<span class="php-var">$input</span>) {
-</span><span id="47" class="l"><a class="l" href="#47">47: </a>    <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_string</span>(<span class="php-var">$input</span>))
-</span><span id="48" class="l"><a class="l" href="#48">48: </a>        <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Exception(<span class="php-quote">&quot;Cannot convert input to integer, string expected - got &quot;</span>.<span class="php-keyword2">gettype</span>(<span class="php-var">$input</span>));
-</span><span id="49" class="l"><a class="l" href="#49">49: </a>    <span class="php-keyword1">return</span> (float) <span class="php-var">$input</span>;
-</span><span id="50" class="l"><a class="l" href="#50">50: </a>}
-</span><span id="51" class="l"><a class="l" href="#51">51: </a>
-</span><span id="52" class="l"><a class="l" href="#52">52: </a><span class="php-keyword1">function</span> <a id="_arrayToString" href="#_arrayToString">arrayToString</a>(<span class="php-keyword1">Array</span> <span class="php-var">$input</span>) {
-</span><span id="53" class="l"><a class="l" href="#53">53: </a>    <span class="php-var">$output</span> = <span class="php-quote">&quot;&quot;</span>;
-</span><span id="54" class="l"><a class="l" href="#54">54: </a>    <span class="php-keyword1">foreach</span>(<span class="php-var">$input</span> <span class="php-keyword1">as</span> <span class="php-var">$key</span>) {
-</span><span id="55" class="l"><a class="l" href="#55">55: </a>        <span class="php-var">$output</span> .= <span class="php-var">$key</span>. <span class="php-quote">&quot; &quot;</span>;
-</span><span id="56" class="l"><a class="l" href="#56">56: </a>    }
-</span><span id="57" class="l"><a class="l" href="#57">57: </a>    <span class="php-keyword1">return</span> <span class="php-var">$output</span>;
-</span><span id="58" class="l"><a class="l" href="#58">58: </a>}
-</span><span id="59" class="l"><a class="l" href="#59">59: </a>
-</span><span id="60" class="l"><a class="l" href="#60">60: </a><span class="php-keyword1">function</span> <a id="_call" href="#_call">call</a>(<span class="php-keyword1">Callable</span> <span class="php-var">$callback</span>) {
-</span><span id="61" class="l"><a class="l" href="#61">61: </a>    <span class="php-keyword1">return</span> <span class="php-keyword2">call_user_func</span>(<span class="php-var">$callback</span>);
-</span><span id="62" class="l"><a class="l" href="#62">62: </a>}
-</span><span id="63" class="l"><a class="l" href="#63">63: </a>
-</span><span id="64" class="l"><a class="l" href="#64">64: </a></span><span class="xlang">?&gt;</span></code></pre>
+</span></span><span id="31" class="l"><a class="l" href="#31">31: </a><span class="php-comment"> * The array from which the value is to be gotten.
+</span></span><span id="32" class="l"><a class="l" href="#32">32: </a><span class="php-comment"> * @param mixed $key
+</span></span><span id="33" class="l"><a class="l" href="#33">33: </a><span class="php-comment"> * The key to the value to be gotten.
+</span></span><span id="34" class="l"><a class="l" href="#34">34: </a><span class="php-comment"> * @param mixed $return_value
+</span></span><span id="35" class="l"><a class="l" href="#35">35: </a><span class="php-comment"> * Default value is &quot;%throw-exception%&quot; and the function will throw an exception if the key
+</span></span><span id="36" class="l"><a class="l" href="#36">36: </a><span class="php-comment"> * could not be found in the array and no return value is specified.
+</span></span><span id="37" class="l"><a class="l" href="#37">37: </a><span class="php-comment"> * @return mixed
+</span></span><span id="38" class="l"><a class="l" href="#38">38: </a><span class="php-comment"> * Returns the data at the key in the given array
+</span></span><span id="39" class="l"><a class="l" href="#39">39: </a><span class="php-comment"> * @throws Exception
+</span></span><span id="40" class="l"><a class="l" href="#40">40: </a><span class="php-comment"> * Exception is thrown if the given key does not exist in the array, and when a return value is not 
+</span></span><span id="41" class="l"><a class="l" href="#41">41: </a><span class="php-comment"> * specified
+</span></span><span id="42" class="l"><a class="l" href="#42">42: </a><span class="php-comment"> */</span>
+</span><span id="43" class="l"><a class="l" href="#43">43: </a><span class="php-keyword1">function</span> <a id="_arrGet" href="#_arrGet">arrGet</a>(<span class="php-keyword1">Array</span> <span class="php-var">$array</span>, <span class="php-var">$key</span>, <span class="php-var">$return_value</span> = <span class="php-quote">&quot;%throw-exception%&quot;</span>) {
+</span><span id="44" class="l"><a class="l" href="#44">44: </a>    <span class="php-keyword1">if</span>(!<span class="php-keyword2">array_key_exists</span>(<span class="php-var">$key</span>, <span class="php-var">$array</span>))
+</span><span id="45" class="l"><a class="l" href="#45">45: </a>        <span class="php-keyword1">if</span>(<span class="php-var">$return_value</span> == <span class="php-quote">&quot;%throw-exception%&quot;</span>)
+</span><span id="46" class="l"><a class="l" href="#46">46: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Exception(<span class="php-quote">&quot;Could not find key &quot;</span>.<span class="php-var">$key</span>.<span class="php-quote">&quot; in array: &quot;</span> . pre_print_r(<span class="php-var">$array</span>, <span class="php-keyword1">true</span>));
+</span><span id="47" class="l"><a class="l" href="#47">47: </a>        <span class="php-keyword1">else</span>
+</span><span id="48" class="l"><a class="l" href="#48">48: </a>            <span class="php-keyword1">return</span> <span class="php-var">$return_value</span>;
+</span><span id="49" class="l"><a class="l" href="#49">49: </a>            
+</span><span id="50" class="l"><a class="l" href="#50">50: </a>    <span class="php-keyword1">return</span> <span class="php-var">$array</span>[<span class="php-var">$key</span>];
+</span><span id="51" class="l"><a class="l" href="#51">51: </a>}
+</span><span id="52" class="l"><a class="l" href="#52">52: </a>
+</span><span id="53" class="l"><a class="l" href="#53">53: </a><span class="php-comment">/**
+</span></span><span id="54" class="l"><a class="l" href="#54">54: </a><span class="php-comment"> * Converts a string to an integer value
+</span></span><span id="55" class="l"><a class="l" href="#55">55: </a><span class="php-comment"> * @param string $input
+</span></span><span id="56" class="l"><a class="l" href="#56">56: </a><span class="php-comment"> * @return int
+</span></span><span id="57" class="l"><a class="l" href="#57">57: </a><span class="php-comment"> * @throws Exception
+</span></span><span id="58" class="l"><a class="l" href="#58">58: </a><span class="php-comment"> * Throws an exception if the input value is not a string.
+</span></span><span id="59" class="l"><a class="l" href="#59">59: </a><span class="php-comment"> */</span>
+</span><span id="60" class="l"><a class="l" href="#60">60: </a><span class="php-keyword1">function</span> <a id="_toInt" href="#_toInt">toInt</a>(<span class="php-var">$input</span>) {
+</span><span id="61" class="l"><a class="l" href="#61">61: </a>    <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_string</span>(<span class="php-var">$input</span>))
+</span><span id="62" class="l"><a class="l" href="#62">62: </a>        <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Exception(<span class="php-quote">&quot;Cannot convert input to integer, string expected - got &quot;</span>.<span class="php-keyword2">gettype</span>(<span class="php-var">$input</span>));
+</span><span id="63" class="l"><a class="l" href="#63">63: </a>    <span class="php-keyword1">return</span> (float) <span class="php-var">$input</span>;
+</span><span id="64" class="l"><a class="l" href="#64">64: </a>}
+</span><span id="65" class="l"><a class="l" href="#65">65: </a>
+</span><span id="66" class="l"><a class="l" href="#66">66: </a><span class="php-comment">/**
+</span></span><span id="67" class="l"><a class="l" href="#67">67: </a><span class="php-comment"> * Converts an array to string
+</span></span><span id="68" class="l"><a class="l" href="#68">68: </a><span class="php-comment"> * @param array $input
+</span></span><span id="69" class="l"><a class="l" href="#69">69: </a><span class="php-comment"> * @return string
+</span></span><span id="70" class="l"><a class="l" href="#70">70: </a><span class="php-comment"> */</span>
+</span><span id="71" class="l"><a class="l" href="#71">71: </a><span class="php-keyword1">function</span> <a id="_arrayToString" href="#_arrayToString">arrayToString</a>(<span class="php-keyword1">Array</span> <span class="php-var">$input</span>) {
+</span><span id="72" class="l"><a class="l" href="#72">72: </a>    <span class="php-var">$output</span> = <span class="php-quote">&quot;&quot;</span>;
+</span><span id="73" class="l"><a class="l" href="#73">73: </a>    <span class="php-keyword1">foreach</span>(<span class="php-var">$input</span> <span class="php-keyword1">as</span> <span class="php-var">$key</span>) {
+</span><span id="74" class="l"><a class="l" href="#74">74: </a>        <span class="php-var">$output</span> .= <span class="php-var">$key</span>. <span class="php-quote">&quot; &quot;</span>;
+</span><span id="75" class="l"><a class="l" href="#75">75: </a>    }
+</span><span id="76" class="l"><a class="l" href="#76">76: </a>    <span class="php-keyword1">return</span> <span class="php-var">$output</span>;
+</span><span id="77" class="l"><a class="l" href="#77">77: </a>}
+</span><span id="78" class="l"><a class="l" href="#78">78: </a>
+</span><span id="79" class="l"><a class="l" href="#79">79: </a><span class="php-comment">/**
+</span></span><span id="80" class="l"><a class="l" href="#80">80: </a><span class="php-comment"> * Alias function to call_user_func
+</span></span><span id="81" class="l"><a class="l" href="#81">81: </a><span class="php-comment"> * @param Callable $callback
+</span></span><span id="82" class="l"><a class="l" href="#82">82: </a><span class="php-comment"> * @return type
+</span></span><span id="83" class="l"><a class="l" href="#83">83: </a><span class="php-comment"> */</span>
+</span><span id="84" class="l"><a class="l" href="#84">84: </a><span class="php-keyword1">function</span> <a id="_call" href="#_call">call</a>(<span class="php-keyword1">Callable</span> <span class="php-var">$callback</span>) {
+</span><span id="85" class="l"><a class="l" href="#85">85: </a>    <span class="php-keyword1">return</span> <span class="php-keyword2">call_user_func</span>(<span class="php-var">$callback</span>);
+</span><span id="86" class="l"><a class="l" href="#86">86: </a>}
+</span><span id="87" class="l"><a class="l" href="#87">87: </a>
+</span><span id="88" class="l"><a class="l" href="#88">88: </a></span><span class="xlang">?&gt;</span></code></pre>
 
 	<div id="footer">
 		DatabaseClass API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
