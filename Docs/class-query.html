@@ -82,6 +82,9 @@
 			<li>
 				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
 			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
 		</ul>
 		<ul>
 		</ul>
@@ -218,6 +221,192 @@ class="php-quote">&quot;id = 1&quot;</span>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="select" id="_select">
+
+		<td class="attributes"><code>
+			 private 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_select">#</a>
+		<code><a href="source-class-query.html#99-124" title="Go to source code">select</a>( <span>array <var>$parameters</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Creates a mysql-compatible string from a given set of array key/values passed
+from the constructor</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates a mysql-compatible string from a given set of array key/values passed
+from the constructor</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$parameters</var></dt>
+					<dd><code>array</code><br>$parameters</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="modular_query" id="_modular_query">
+
+		<td class="attributes"><code>
+			 private 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_modular_query">#</a>
+		<code><a href="source-class-query.html#126-145" title="Go to source code">modular_query</a>( <span>array <var>$parameters</var></span>, <span>mixed <var>$mode</var></span>, <span>array <var>$extra_parameters</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="insert" id="_insert">
+
+		<td class="attributes"><code>
+			 private 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_insert">#</a>
+		<code><a href="source-class-query.html#147-154" title="Go to source code">insert</a>( <span>array <var>$parameters</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Creates a mysql-compatable string to use with an insert query</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates a mysql-compatable string to use with an insert query</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$parameters</var></dt>
+					<dd><code>array</code><br>$parameters</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="update" id="_update">
+
+		<td class="attributes"><code>
+			 private 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_update">#</a>
+		<code><a href="source-class-query.html#156-169" title="Go to source code">update</a>( <span>array <var>$parameters</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Creates a mysql-compatible string to use with an update query</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates a mysql-compatible string to use with an update query</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$parameters</var></dt>
+					<dd><code>array</code><br>$parameters</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete" id="_delete">
+
+		<td class="attributes"><code>
+			 private 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete">#</a>
+		<code><a href="source-class-query.html#171-180" title="Go to source code">delete</a>( <span>array <var>$parameters</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="getLastQueryString" id="_getLastQueryString">
 
 		<td class="attributes"><code>
@@ -268,6 +457,38 @@ class="php-quote">&quot;id = 1&quot;</span>
 
 
 
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="query_string" id="$query_string">
+		<td class="attributes"><code>
+			private  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-query.html#70-74" title="Go to source code"><var>$query_string</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$query_string" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Holds the generated SQL string that will eventually be evaluated trough
+mysql</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Holds the generated SQL string that will eventually be evaluated trough
+mysql</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
 
 
 
