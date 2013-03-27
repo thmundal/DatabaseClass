@@ -1,4 +1,7 @@
 <?php
+//namespace extended_mysqli;
+//use mysqli;
+
 /**
  * Extended MySQL handler for PHP version 5.4.7 and MySQL version 5.5.27
  * @author Thomas Mundal <thmundal@gmail.com>
@@ -77,11 +80,19 @@ Class query  {
      * Initializes a new query and translates the parameters into usable SQL.
      * Query parameters are passed in an array by identifying information trough key/value pairs.
      * Key/value pairs that can be used are:<pre>
-     * "type" => "select"/"insert"/"delete"/"update",
-     * "table" => [table_name],
-     * "where" => [(string) condition] ex: "row1 = true AND row2 = \"blah\"",
-     * "order" => [mysql_order_statement],
-     * "limit" => [mysql_limit_statement]</pre>
+     * "type" => string "select"/"insert"/"delete"/"update",
+     * "table" => table_name,
+     * "data" => array dataset_of_keyvalue_pairs
+     * "where" => (string) condition ex: "row1 = true AND row2 = \"blah\"",
+     * "order" => mysql_order_statement,
+     * "limit" => mysql_limit_statement</pre>
+     * Example of an update query: 
+     * <code>$connection->execute(new query([
+            "type" => "update",
+            "table" => "test",
+            "data" => ["name" => "update test 2"],
+            "where" => "id = 1"
+        ]));</code>
      * @param Array $query_parameters
      */
     public function __construct(Array $query_parameters) {
@@ -93,7 +104,7 @@ Class query  {
      * @param array $parameters
      * @return string
      */
-    public function select(Array $parameters) {
+    private function select(Array $parameters) {
         return arrayToString(array_merge(
                                 ["SELECT", call(function() use($parameters) {
                                     if(is_array($fields = arrGet($parameters, "fields", "*")))
@@ -115,16 +126,58 @@ Class query  {
                                 })));
     }
     
-    public function insert(Array $parameters) {
-        return arrayToString(["INSERT INTO ",
+    private function modular_query(Array $parameters, $mode, Array $extra_parameters) {
+        $modes = ["insert" => "INSERT INTO ", 
+                  "update" => "UPDATE "];
+        
+        if(empty($mode) OR !is_string($mode) OR !array_key_exists($mode, $modes))
+            throw new Exception("No or invalid mode specified");
+        
+        return arrayToString([arrGet($modes, $mode),
             arrGet($parameters, "table"),
             " SET ",
             call(function() use($parameters) {
                 $r = "";
                 foreach(arrGet($parameters, "data") as $key => $value) {
-                    $r .= $key."=\"".$value."\" ";
+                    $r .= $key."=\"".$value."\", ";
                 }
-                return $r;
+                return substr($r, 0, strlen($r) - 2);
+            }),
+            arrayToString($extra_parameters),
+            ";"]);
+    }
+    
+    /**
+     * Creates a mysql-compatable string to use with an insert query
+     * @param array $parameters
+     * @return string
+     */
+    private function insert(Array $parameters) {
+        return $this->modular_query($parameters, "insert", []);
+    }
+    
+    /**
+     * Creates a mysql-compatible string to use with an update query
+     * @param array $parameters
+     * @return string
+     */
+    private function update(Array $parameters) {
+        return $this->modular_query(
+                $parameters, 
+                "update", 
+                [call(function() use($parameters) {
+                    if(($where = arrGet($parameters, "where", false)))
+                        return " WHERE " . $where;
+                })]);
+    }
+    
+    private function delete(Array $parameters) {
+        return arrayToString([
+            "DELETE FROM ",
+            arrGet($parameters, "table"),
+            call(function() use($parameters) {
+                if(($where = arrGet($parameters, "where", false)))
+                    return " WHERE " . $where;
             }),
             ";"]);
     }
@@ -140,7 +193,8 @@ Class query  {
 }
 
 /**
- * Hols the resultset returned from an executed query for manipulation post-execution
+ * Holds the resultset returned from an executed query for manipulation post-execution
+ * @todo Add mysql-level error handling
  */
 Class result extends mysql_connection {
     /**
@@ -184,16 +238,17 @@ Class ResultSet {
     public function __construct(result $input_result) {
         // Should have some other way of bypassing queries that does not create a resultset
         // For debuggin purposes.
-        echo "Result for " . $input_result->lastQuery.": <br />";
         
         $result_fields = $input_result->getQueryResult();
                 
         if($result_fields instanceof mysqli_result) {
-            foreach($result_fields->fetch_assoc() as $row => $data) {
-                    $this->{$row} = $data;
+            $this->data = [];
+            for($i=0; $i<$result_fields->num_rows; $i++) {
+                $this->data[] = $result_fields->fetch_assoc();
             }
-        } else 
-            echo "error on " . $input_result->lastQuery;
+        }
+//        else 
+//            echo "error on " . $input_result->lastQuery;
     }
 }
 ?>
