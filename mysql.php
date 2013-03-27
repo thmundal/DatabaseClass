@@ -1,7 +1,7 @@
 <?php
 /**
  * Extended MySQL handler for PHP version 5.4.7 and MySQL version 5.5.27
- * @author Thomas Mundal
+ * @author Thomas Mundal <thmundal@gmail.com>
  */
 require_once("util.php");
 
@@ -78,7 +78,7 @@ Class query  {
      * Query parameters are passed in an array by identifying information trough key/value pairs.
      * Key/value pairs that can be used are:<pre>
      * "type" => "select"/"insert"/"delete"/"update",
-     * description"table" => [table_name],
+     * "table" => [table_name],
      * "where" => [(string) condition] ex: "row1 = true AND row2 = \"blah\"",
      * "order" => [mysql_order_statement],
      * "limit" => [mysql_limit_statement]</pre>
@@ -115,26 +115,51 @@ Class query  {
                                 })));
     }
     
+    public function insert(Array $parameters) {
+        return arrayToString(["INSERT INTO ",
+            arrGet($parameters, "table"),
+            " SET ",
+            call(function() use($parameters) {
+                $r = "";
+                foreach(arrGet($parameters, "data") as $key => $value) {
+                    $r .= $key."=\"".$value."\" ";
+                }
+                return $r;
+            }),
+            ";"]);
+    }
+    
+    /**
+     * Returns the last used query string in this query
+     * @return string
+     * The last used query string in this query
+     */
     public function getLastQueryString() {
         return $this->query_string;
     }
 }
 
-
+/**
+ * Hols the resultset returned from an executed query for manipulation post-execution
+ */
 Class result extends mysql_connection {
     /**
-     *
+     * Holds the contained data from the resultset
      * @var ResultSet
      */
     private $resultSet;
+    public $lastQuery;
+    private $queryResult;
     
     /**
-     * 
+     * Contstructor
      * @param mysqli $connection
      * @param query $query
      */
     public function __construct($connection, query $query) {
-        $this->resultSet = new ResultSet($connection->query($query->getLastQueryString()));
+        $this->queryResult = $connection->query($query->getLastQueryString());
+        $this->lastQuery = $query->getLastQueryString();
+        $this->resultSet = new ResultSet($this);
     }
 
     /**
@@ -144,13 +169,31 @@ Class result extends mysql_connection {
     public function extract() {
         return $this->resultSet;
     }
+    
+    public function getQueryResult() {
+        return $this->queryResult;
+    }
 }
 
+/**
+ * A translation from mysql resource to ResultSet
+ */
 Class ResultSet {
-    public function __construct($result_fields) {
-        foreach($result_fields->fetch_assoc() as $row => $data) {
-                $this->{$row} = $data;
-        }
+    public $data;
+    
+    public function __construct(result $input_result) {
+        // Should have some other way of bypassing queries that does not create a resultset
+        // For debuggin purposes.
+        echo "Result for " . $input_result->lastQuery.": <br />";
+        
+        $result_fields = $input_result->getQueryResult();
+                
+        if($result_fields instanceof mysqli_result) {
+            foreach($result_fields->fetch_assoc() as $row => $data) {
+                    $this->{$row} = $data;
+            }
+        } else 
+            echo "error on " . $input_result->lastQuery;
     }
 }
 ?>
