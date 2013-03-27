@@ -1,7 +1,4 @@
 <?php
-//namespace extended_mysqli;
-//use mysqli;
-
 /**
  * Extended MySQL handler for PHP version 5.4.7 and MySQL version 5.5.27
  * @author Thomas Mundal <thmundal@gmail.com>
@@ -235,10 +232,11 @@ Class result extends mysql_connection {
 Class ResultSet {
     public $data;
     
-    public function __construct(result $input_result) {
-        // Should have some other way of bypassing queries that does not create a resultset
-        // For debuggin purposes.
-        
+    /**
+     * @todo Should have some other way of bypassing queries that does not create a resultset for debuggin purposes.
+     * @param result $input_result
+     */
+    public function __construct(result $input_result) {        
         $result_fields = $input_result->getQueryResult();
                 
         if($result_fields instanceof mysqli_result) {
@@ -247,8 +245,6 @@ Class ResultSet {
                 $this->data[] = $result_fields->fetch_assoc();
             }
         }
-//        else 
-//            echo "error on " . $input_result->lastQuery;
     }
 }
 ?>
