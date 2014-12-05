@@ -129,4 +129,8 @@ class query {
         pg_query("COMMIT;");
         $callback($this);
     }
+
+    public function type($i) {
+        return ph_field_type($this->result, $i);
+    }
 }
