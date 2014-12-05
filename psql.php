@@ -131,6 +131,6 @@ class query {
     }
 
     public function type($i) {
-        return ph_field_type($this->result, $i);
+        return pg_field_type($this->result, $i);
     }
 }
