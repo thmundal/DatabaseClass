@@ -3,8 +3,10 @@
  * Extended MySQL handler for PHP version 5.4.7 and MySQL version 5.5.27
  * @author Thomas Mundal <thmundal@gmail.com>
  */
-require_once("util.php");
 
+ if(!function_exists("arrGet"))
+     require_once("util.php");
+ 
 Class mysql_connection extends mysqli {
     /** @var mysqli 
      * Holds the mysqli connection */
@@ -59,7 +61,7 @@ Class mysql_connection extends mysqli {
      * @return result
      */
     public function execute(query $query) {
-        return ($this->result = new result($this->connection, $query));
+        return ($this->result = new mysql__result($this->connection, $query));
     }
 }
 
@@ -193,7 +195,7 @@ Class query  {
  * Holds the resultset returned from an executed query for manipulation post-execution
  * @todo Add mysql-level error handling
  */
-Class result extends mysql_connection {
+Class mysql__result extends mysql_connection {
     /**
      * Holds the contained data from the resultset
      * @var ResultSet
@@ -210,7 +212,7 @@ Class result extends mysql_connection {
     public function __construct($connection, query $query) {
         $this->queryResult = $connection->query($query->getLastQueryString());
         $this->lastQuery = $query->getLastQueryString();
-        $this->resultSet = new ResultSet($this);
+        $this->resultSet = new mysqlResultSet($this);
     }
 
     /**
@@ -229,7 +231,7 @@ Class result extends mysql_connection {
 /**
  * A translation from mysql resource to ResultSet
  */
-Class ResultSet {
+Class mysqlResultSet {
     public $data;
     
     /**

@@ -38,7 +38,7 @@ class psql {
     
     public function query($query_string, Array $params = [], $direct = true) {
         // Validate query structure... somehow..
-        return new query($query_string, $this->connection, $params, $direct);
+        return new psql_query($query_string, $this->connection, $params, $direct);
     }
     
     public function select($table, Array $fields = ['*'], $conditions = "TRUE", Array $params = [], $direct = true) {
@@ -84,7 +84,7 @@ class psql {
     }
 }
 
-class query {
+class psql_query {
     public $data;
     public $rows;
     public $result;
